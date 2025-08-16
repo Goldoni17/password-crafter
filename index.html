@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Password Crafter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f4f6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 300px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      background: #4f46e5;
+      color: white;
+      border: none;
+      padding: 10px;
+      width: 100%;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #4338ca;
+    }
+    .result {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 18px;
+      color: #111827;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Password Crafter 🔐</h2>
+    <input type="text" id="inputWord" placeholder="Digite sua palavra-chave">
+    <button onclick="generatePassword()">Gerar Senha</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function generatePassword() {
+      let word = document.getElementById("inputWord").value.trim();
+      if (!word) {
+        document.getElementById("result").innerText = "Digite uma palavra!";
+        return;
+      }
+
+      // lógica simples para gerar senha
+      let reversed = word.split("").reverse().join("");
+      let leet = reversed.replace(/a/gi, "@").replace(/e/gi, "3")
+                         .replace(/i/gi, "1").replace(/o/gi, "0")
+                         .replace(/s/gi, "$");
+
+      let special = "!#%&*?";
+      let randomChar = special[Math.floor(Math.random() * special.length)];
+      let password = leet + randomChar + word.length;
+
+      document.getElementById("result").innerText = password;
+    }
+  </script>
+</body>
+</html>
